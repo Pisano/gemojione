@@ -1,5 +1,7 @@
 module Gemojione
   class Index
+    attr_reader :all
+
     def initialize(emoji_list=nil)
       emoji_list ||= begin
         emoji_json = File.read(File.absolute_path(File.dirname(__FILE__) + '/../../config/index.json'))
@@ -11,6 +13,8 @@ module Gemojione
       @emoji_by_ascii = {}
       @emoji_by_code = {}
       @emoji_by_keyword = {}
+      @emoji_by_category = {}
+      @all = emoji_list
 
       emoji_list.each do |key, emoji_hash|
 
@@ -21,6 +25,7 @@ module Gemojione
         emoji_hash["aliases"].each do |emoji_alias|
           aliased = emoji_alias.tr(':','')
           @emoji_by_name[aliased] = emoji_hash if aliased
+          @emoji_by_code[emoji_alias] = emoji_hash if aliased
         end
 
         emoji_hash['aliases_ascii'].each do |emoji_ascii|
@@ -36,6 +41,12 @@ module Gemojione
         emoji_hash['keywords'].each do |emoji_keyword|
           @emoji_by_keyword[emoji_keyword] ||= []
           @emoji_by_keyword[emoji_keyword] << emoji_hash
+        end
+
+        category = emoji_hash['category']
+        if category
+          @emoji_by_category[category] ||= {}
+          @emoji_by_category[category][key] = emoji_hash
         end
       end
 
@@ -58,6 +69,14 @@ module Gemojione
 
     def find_by_keyword(keyword)
       @emoji_by_keyword[keyword]
+    end
+
+    def find_by_category(category)
+      @emoji_by_category[category]
+    end
+
+    def find_by_shortname(shortname)
+      @emoji_by_code[shortname]
     end
 
     def unicode_moji_regex

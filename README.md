@@ -8,6 +8,10 @@ This gem exposes the [emojione](http://emojione.com/) unicode/image assets and A
 
 Easily lookup emoji name, unicode character, or image assets and convert emoji representations.
 
+## Maintainer Notice
+
+This project is not currently maintained, I'm afraid I don't have the time nor the Ruby expertise to carry this project forward anymore. If by any chance someone wants to push this project forward feel free to contact me to discuss it.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -157,7 +161,7 @@ gem 'escape_utils'
 ```
 
 ## Spritesheet scaling
-Default size for sprite tag is 64px x 64px, [zoom](http://caniuse.com/#feat=css-zoom) or [transform: scale()](http://caniuse.com/#feat=transforms2d) can be used for custom scaling. transform: scale() is more widely supported.
+If you’re using spritesheets, customising `Gemojione.default_size` at `config/initializers/gemojione.rb` won’t work. Default size for sprite tag is 64px x 64px, but [`zoom`](http://caniuse.com/#feat=css-zoom) or [`transform: scale()`](http://caniuse.com/#feat=transforms2d) can be used for custom scaling. transform: scale() is more widely supported.
 
 ```css
 .emojione{
@@ -191,6 +195,9 @@ This gem is a former fork of the [emoji](https://github.com/wpeterson/emoji) gem
 * [@gnclmorais](https://github.com/gnclmorais): Add `replace_named_moji_with_images ` missing ext helper.
 * [@naveed-ahmad](https://github.com/naveed-ahmad): ASCII replacement API and Spritesheet support.
 * [@Eric-Guo](https://github.com/Eric-Guo): Usage of `.ruby-version` instead of `.rvmrc`.
+* [@amyspark](https://github.com/amyspark): Add `find_by_shortname` 
+* [@ryosuke-endo](https://github.com/ryosuke-endo): Access to emoji list and `find_by_category`.
+* [@connorshea](https://github.com/connorshea): Bugfixing.
 
 ## Contributing
 
